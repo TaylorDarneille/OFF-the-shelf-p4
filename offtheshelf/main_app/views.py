@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-import requests, xmltodict, json, dotenv
+import requests, xmltodict, json
 
 # Create your views here.
 
