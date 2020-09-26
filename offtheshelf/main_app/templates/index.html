@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {%block content%}
     <form action="/search_results/" method="POST">
-    <!-- {% csrf_token %} -->
+    {% csrf_token %}
 
         <label for="search">Search:</label>
         <input type="text" name="search">
