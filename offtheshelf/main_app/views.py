@@ -24,8 +24,8 @@ def search_results(request):
         data = xmltodict.parse(response.content)
         books = json.dumps(data)
         bo = json.loads(books)
-
         searchList = bo["GoodreadsResponse"]["search"]["results"]["work"]
+        
         
         booklist = []
 
@@ -33,7 +33,9 @@ def search_results(request):
             book = {
                 "title": searchList[i]["best_book"]["title"],
                 "author": searchList[i]["best_book"]["author"]["name"],
-                "img_url": searchList[i]["best_book"]["image_url"]
+                "img_url": searchList[i]["best_book"]["image_url"],
+                "average_rating": searchList[i]["average_rating"],
+                "id": searchList[i]["best_book"]["id"]['#text'],
             }
             booklist.append(book)
             

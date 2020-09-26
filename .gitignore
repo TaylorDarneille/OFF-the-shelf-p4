@@ -1,3 +1,4 @@
 offtheshelf/.env
 offtheshelf/offtheshelf/__pycache__
 offtheshelf/main_app/__pycache__
+offtheshelf/main_app/migrations/__pycache__
