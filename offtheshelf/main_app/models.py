@@ -1,3 +1,5 @@
 from django.db import models
+# from .models import Cat, CatToy
 
-# Create your models here.
+# Register your models here.
+# admin.site.register(Cat)
