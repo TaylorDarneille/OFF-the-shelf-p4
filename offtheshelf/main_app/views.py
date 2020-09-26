@@ -24,7 +24,17 @@ def search_results(request):
         data = xmltodict.parse(response.content)
         books = json.dumps(data)
         bo = json.loads(books)
-        title = (bo["GoodreadsResponse"]["search"]["results"]["work"][0]["best_book"]["title"])
 
-    return render(request, 'search_results.html', { 'title': title })
+        searchList = bo["GoodreadsResponse"]["search"]["results"]["work"]
+        
+        booklist = []
 
+        for i in range(10):
+            book = {
+                "title": searchList[i]["best_book"]["title"],
+                "author": searchList[i]["best_book"]["author"]["name"],
+                "img_url": searchList[i]["best_book"]["image_url"]
+            }
+            booklist.append(book)
+            
+    return render(request, 'search_results.html', {"booklist": booklist} )
