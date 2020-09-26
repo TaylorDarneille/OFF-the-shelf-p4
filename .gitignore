@@ -1,3 +1,3 @@
 offtheshelf/.env
-offtheshelf/__pycache__
-main_app/__pycache__
+offtheshelf/offtheshelf/__pycache__
+offtheshelf/main_app/__pycache__
