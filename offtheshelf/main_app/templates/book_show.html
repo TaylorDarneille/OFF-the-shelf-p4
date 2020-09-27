@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
 {%block content%}
-
-    {% endblock %}
+<h1>{{ detail.title }}</h1>
+<p>{{ detail.description }}</p>
+<img src={{detail.img_url}} alt="img">
+{% endblock %}
