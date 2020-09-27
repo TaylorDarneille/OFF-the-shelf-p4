@@ -100,7 +100,9 @@ def book_show(request):
         "average_rating": book["average_rating"],
         # "similar_books": similar_books,
     }
-    
+
     print(jsonData)
-    print(book)
+=======
+    
+
     return render(request, 'book_show.html', {"detail": detail})
