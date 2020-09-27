@@ -61,12 +61,12 @@ def search_results(request):
         search = request.POST.get("search")
 
         response = requests.get('https://www.goodreads.com/search.xml?key={}&q={}'.format(config('key'), search))
-    
+        
         data = xmltodict.parse(response.content)
         books = json.dumps(data)
         bo = json.loads(books)
         searchList = bo["GoodreadsResponse"]["search"]["results"]["work"]
-        
+        print(books)
         
         booklist = []
 
