@@ -101,10 +101,18 @@ def book_show(request):
         # "similar_books": similar_books,
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
     print(jsonData)
 =======
     
     print(jsonData)
     print(book)
 >>>>>>> df27ebe8f6bf7a9d1703a2d9163af7dd8603d41a
+=======
+
+    print(jsonData)
+=======
+    
+
+>>>>>>> 085d9dda952fc9796030b553a74e7b4f408b70c7
     return render(request, 'book_show.html', {"detail": detail})
