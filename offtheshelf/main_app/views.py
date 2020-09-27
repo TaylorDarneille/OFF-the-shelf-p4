@@ -63,9 +63,9 @@ def search_results(request):
         response = requests.get('https://www.goodreads.com/search.xml?key={}&q={}'.format(config('key'), search))
     
         data = xmltodict.parse(response.content)
-        books = json.dumps(data)
-        bo = json.loads(books)
-        searchList = bo["GoodreadsResponse"]["search"]["results"]["work"]
+        jsonData = json.dumps(data)
+        theData = json.loads(jsonData)
+        searchList = theData["GoodreadsResponse"]["search"]["results"]["work"]
         
         
         booklist = []
@@ -81,3 +81,26 @@ def search_results(request):
             booklist.append(book)
             
     return render(request, 'search_results.html', {"booklist": booklist} )
+
+
+def book_show(request):
+    response = requests.get('https://www.goodreads.com/book/show/233093.xml?key={}'.format(config('key')))
+    data = xmltodict.parse(response.content)
+    jsonData = json.dumps(data)
+    theData = json.loads(jsonData)
+    book = theData["GoodreadsResponse"]["book"]
+    # similar = []
+    # for i in range(10):
+    #     similar_books = { "similar_books" : book[i]["similar_books"]["book"][6],}
+    #     similar.append(similar_books)
+    detail = {
+        "title": book["title"],
+        "description": book["description"],
+        "img_url": book["image_url"],
+        "average_rating": book["average_rating"],
+        # "similar_books": similar_books,
+    }
+    
+    print(jsonData)
+    print(book)
+    return render(request, 'book_show.html', {"detail": detail})

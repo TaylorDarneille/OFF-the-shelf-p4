@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
 {%block content%}
-
-    {% endblock %}
+<h1>{{ detail.title }}</h1>
+<h3>avg rating: {{detail.average_rating}}</h3>
+<p>{{ detail.description }}</p>
+<img src={{detail.similar_books}} alt="img">
+<img src={{detail.img_url}} alt="img">
+{% endblock %}
