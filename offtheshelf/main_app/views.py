@@ -61,12 +61,19 @@ def search_results(request):
         search = request.POST.get("search")
 
         response = requests.get('https://www.goodreads.com/search.xml?key={}&q={}'.format(config('key'), search))
-        
+    
         data = xmltodict.parse(response.content)
+        jsonData = json.dumps(data)
+        theData = json.loads(jsonData)
+        searchList = theData["GoodreadsResponse"]["search"]["results"]["work"]
+        
+        
+        booklist = []
 
         for i in range(10):
             book = {
                 "title": searchList[i]["best_book"]["title"],
+                "author": searchList[i]["best_book"]["author"]["name"],
                 "img_url": searchList[i]["best_book"]["image_url"],
                 "average_rating": searchList[i]["average_rating"],
                 "id": searchList[i]["best_book"]["id"]['#text'],
