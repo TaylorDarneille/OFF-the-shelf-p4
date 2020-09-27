@@ -1,15 +1,12 @@
 body{
-    /* background-image:url("https://wallpaper-house.com/data/out/9/wallpaper2you_352144.jpg"); */
+    background-image:url("https://wallpaper-house.com/data/out/9/wallpaper2you_352144.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     color: white;
-    /* justify-content: center; */
     align-items: center;
     background-position: center;
     height: 100vh;
-    background-color: black;
-    /* width: 50vw */
-    background:linear-gradient(to right, #663300 -6%, #ff9900 100%)
+    width: 50vw;
 }
 .container{
     width: 100vw;

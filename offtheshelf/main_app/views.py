@@ -39,6 +39,10 @@ def login_view(request):
         form = AuthenticationForm()
         return render(request, 'login.html', {'form':form})
 
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/')
+
 def signup_view(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
