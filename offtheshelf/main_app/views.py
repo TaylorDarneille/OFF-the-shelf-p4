@@ -106,7 +106,7 @@ def book_show(request):
     }
 
     print(jsonData)
-=======
+
     
 
     return render(request, 'book_show.html', {"detail": detail})
