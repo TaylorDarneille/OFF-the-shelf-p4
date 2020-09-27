@@ -5,6 +5,11 @@
 <div>{{ detail.description }}</div>
 <!-- <img src={{detail.similar_books.book}} alt="img"> -->
 <img src={{detail.img_url}} alt="img">
+<a href="/comment/create/{{detail.id}}">Add a Comment!</a>
+<div class="comments">
+    <h3>Comments: </h3>
+    <h5>{{comments}}</h5>
+</div>
 {% for i in similar %}
 <h1>{{ i.title }}</h1>
 <img src={{i.image_url}} alt="img">
