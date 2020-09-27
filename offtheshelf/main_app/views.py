@@ -94,5 +94,5 @@ def book_show(request):
         "description": book["description"],
         "img_url": book["image_url"]
     }
-    print(book)
+    print(jsonData)
     return render(request, 'book_show.html', {"detail": detail})
