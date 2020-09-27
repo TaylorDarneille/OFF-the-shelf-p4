@@ -96,7 +96,7 @@ def book_show(request):
             "image_url": book["similar_books"]["book"][i]["image_url"]
         }
         similar.append(similar_books)
-    print(similar)
+    # print(similar)
     detail = {
         "title": book["title"],
         "description": book["description"],
