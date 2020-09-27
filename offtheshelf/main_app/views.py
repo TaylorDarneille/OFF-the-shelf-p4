@@ -32,7 +32,6 @@ class CommentCreate(CreateView):
         return HttpResponseRedirect('/user/'+str(user.username))
 
 
-
 def index(request):
     
     return render(request, 'index.html')
@@ -105,9 +104,20 @@ def search_results(request):
     return render(request, 'search_results.html', {"booklist": booklist} )
 
 
-def book_show(request, book_id):
-    comment = Comment.objects.all()
-    response = requests.get('https://www.goodreads.com/book/show/{}.xml?key={}'.format(book_id, config('key')))
+def book_show(request, id):
+    if request.method == 'POST':
+        content = request.POST.get("content")
+        id = request.POST.get("id")
+        user = request.user
+
+        Comment.objects.create(
+            content=content,
+            book_id = id,
+            user = user
+        )
+
+    comments = Comment.objects.filter(book_id=id)
+    response = requests.get('https://www.goodreads.com/book/show/{}.xml?key={}'.format(id, config('key')))
     data = xmltodict.parse(response.content)
     jsonData = json.dumps(data)
     theData = json.loads(jsonData)
@@ -140,7 +150,7 @@ def book_show(request, book_id):
     # print(jsonData)
     # print(book)
     # print(similar)
-    return render(request, 'book_show.html', {"detail": detail, "similar": similar, "buyLinks": buyLinks, "comment":comment})
+    return render(request, 'book_show.html', {"detail": detail, "similar": similar, "buyLinks": buyLinks, "comments":comments})
 
 # @method_decorator(login_required, name='dispatch')
 # class CommentCreate(CreateView, pk):
