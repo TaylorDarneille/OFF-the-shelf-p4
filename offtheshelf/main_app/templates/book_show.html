@@ -9,4 +9,8 @@
 <h1>{{ i.title }}</h1>
 <img src={{i.image_url}} alt="img">
 {% endfor %}
+{% for i in buyLinks %}
+<h3>{{ i.name }}</h3>
+<a href={{ i.link }}>{{ i.link }}</a>
+{% endfor %}
 {% endblock %}

@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {%block content%}
     {% for book in booklist %}
-    <h1> {{ book.title }} </h1>
+    <a href="/book_show/{{ book.id }}">
+        <h1> {{ book.title }} </h1>
+    </a>
     <h2>{{ book.author }}</h2>
     <h3>{{ book.average_rating }}</h3>
     <h4>{{ book.id }}</h4>
