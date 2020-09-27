@@ -2,7 +2,11 @@
 {%block content%}
 <h1>{{ detail.title }}</h1>
 <h3>avg rating: {{detail.average_rating}}</h3>
-<p>{{ detail.description }}</p>
-<img src={{detail.similar_books}} alt="img">
+<div>{{ detail.description }}</div>
+<!-- <img src={{detail.similar_books.book}} alt="img"> -->
 <img src={{detail.img_url}} alt="img">
+{% for i in similar %}
+<h1>{{ i.title }}</h1>
+<img src={{i.image_url}} alt="img">
+{% endfor %}
 {% endblock %}

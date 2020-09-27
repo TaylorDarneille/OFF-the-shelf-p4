@@ -89,10 +89,14 @@ def book_show(request):
     jsonData = json.dumps(data)
     theData = json.loads(jsonData)
     book = theData["GoodreadsResponse"]["book"]
-    # similar = []
-    # for i in range(10):
-    #     similar_books = { "similar_books" : book[i]["similar_books"]["book"][6],}
-    #     similar.append(similar_books)
+    similar = []
+    for i in range(10):
+        similar_books = {
+            "title" : book["similar_books"]["book"][i]["title"],
+            "image_url": book["similar_books"]["book"][i]["image_url"]
+        }
+        similar.append(similar_books)
+    print(similar)
     detail = {
         "title": book["title"],
         "description": book["description"],
@@ -100,19 +104,9 @@ def book_show(request):
         "average_rating": book["average_rating"],
         # "similar_books": similar_books,
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
-    print(jsonData)
-=======
-    
-    print(jsonData)
-    print(book)
->>>>>>> df27ebe8f6bf7a9d1703a2d9163af7dd8603d41a
-=======
 
-    print(jsonData)
-=======
     
-
->>>>>>> 085d9dda952fc9796030b553a74e7b4f408b70c7
-    return render(request, 'book_show.html', {"detail": detail})
+    # print(jsonData)
+    # print(book)
+    # print(similar)
+    return render(request, 'book_show.html', {"detail": detail, "similar": similar})
