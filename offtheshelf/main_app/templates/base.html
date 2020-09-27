@@ -1,32 +1,41 @@
 {% load static %}
 
-
 <!DOCTYPE html>
 <html>
   <head>
     <title>Off The Shelf</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=David+Libre:wght@700&display=swap');
+      </style>
   </head>
   <body>
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         
-        <a class="navbar-brand" href="/">Off the Shelf</a>
+        <a class="navbar-brand" href="/">Off The Shelf</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">            
           <div class="navbar-nav">
-           
+            {% if user.is_authenticated %}
+            <a class="nav-link active" href="{% url 'profile' user.username %}">Profile<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            {% else %}
+            <a class="nav-link" href="/signup">Signup</a>
+            <a class="nav-link" href="/login">Login</a>
+            {% endif %}            
           </div>
         </div>
       </nav>
     </header>
-    
-    <div class="container">
+    <h1 id="index-head">Off The Shelf</h1>
+
+    <div class="container text-center" id="background">
+
     {%block content%}
 
     {% endblock %}
