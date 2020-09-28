@@ -4,13 +4,18 @@
 
   <h1>{{ username }}'s Wishlist </h1>
   {% for i in wishlists %}
-  <a href="/book_show/{{ i.book_id }}"<h4>{{ i.title }}</h4></a>
+  <a href="/book_show/{{ i.book_id }}"><h4>{{ i.title }}</h4></a>
   <img src="{{ i.img_url }}" alt="img">
   <form action="" method="POST">
     {% csrf_token %}
     <input hidden type="text" name="delete" value="{{i.book_id}}">
     <button type="submit">Delete from Wishlist</button>
   </form>
+  {% endfor %}
+
+  <h2>{{ username }}'s Comments</h2>
+  {% for i in comments %}
+  <h4></h4>
   {% endfor %}
   
 

@@ -86,7 +86,8 @@ def profile(request, username):
                 )
     user = User.objects.get(username=username)
     wishlists = Wishlist.objects.filter(user=user)
-    return render(request, 'profile.html', {'username': username, 'wishlists': wishlists})
+    comments = Comment.objects.filter(user=user)
+    return render(request, 'profile.html', {'username': username, 'wishlists': wishlists, "comments": comments})
 
 ######################### Search Result #########################
 def search_results(request):
