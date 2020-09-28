@@ -2,7 +2,36 @@
 {%block content%}
 <h1>{{ detail.title }}</h1>
 <h3>avg rating: {{detail.average_rating}}</h3>
-<p>{{ detail.description }}</p>
-<img src={{detail.similar_books}} alt="img">
+<div>{{ detail.description }}</div>
+<!-- <img src={{detail.similar_books.book}} alt="img"> -->
 <img src={{detail.img_url}} alt="img">
+<form action="/user/{{user.username}}/" method="POST">
+    {% csrf_token %}
+    <input hidden type="text" value="{{ detail.title }}" name="title">
+    <input hidden type="text" value="{{ detail.img_url }}" name="image">
+    <input type="hidden" value={{ detail.id }} name="id">
+    <button type="submit">Add to Wishlist!</button>
+</form>
+<form action="/book_show/{{ detail.id }}/" method="POST">
+    {% csrf_token %}
+    <label for="content">Add a comment:</label>
+    <input type="text" name="content">
+    <input type="hidden" name="id" value={{ detail.id }}>
+    <button type="submit">Submit</button>
+</form>
+<div class="comments">
+    <h3>Comments: </h3>
+    {% for comment in comments %}
+    <h5>{{ comment.user.username }}</h5>
+    <h5>{{ comment.content }}</h5>
+    {% endfor %}
+</div>
+{% for i in similar %}
+<h1>{{ i.title }}</h1>
+<img src={{i.image_url}} alt="img">
+{% endfor %}
+{% for i in buyLinks %}
+<h3>{{ i.name }}</h3>
+<a href={{ i.link }}>{{ i.link }}</a>
+{% endfor %}
 {% endblock %}

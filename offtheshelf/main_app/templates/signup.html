@@ -1,5 +1,18 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
+  <div class="container text-center" id="signup" >
+    <h3 class="title">Sign Up</h3>
+      <form method="POST">
+        {% csrf_token %} {{ form.as_p }}
+        <div class="text-center">
+          <button class="btn btn-primary" type="submit">Sign Up!</button>
+        </div>
+      </form>
 
-{%block content%}
+      <div>
+        <p class="signup-text">
+         Welcome to Off the Shelf! 
+        </p>
+      </div>
+  </div>
+{% endblock %}
 
-    {% endblock %}

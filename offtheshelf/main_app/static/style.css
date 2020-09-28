@@ -1,20 +1,78 @@
 body{
-    /* background-image:url("https://wallpaper-house.com/data/out/9/wallpaper2you_352144.jpg"); */
-    background-size: cover;
-    background-repeat: no-repeat;
-    color: white;
-    /* justify-content: center; */
-    align-items: center;
+    background-image: url("./assets/newbook.jpg");
+    min-height: 500px;
+    background-attachment: fixed;
     background-position: center;
-    height: 100vh;
-    background-color: black;
-    /* width: 50vw */
-    background:linear-gradient(to right, #663300 -6%, #ff9900 100%)
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: 'David Libre', serif;
+    text-shadow: 2px 2px black;
+    color: #e8d0a9;
+    background-color: #e8d0a9;;
 }
+.opaque{
+    width: 50vw;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.4);
+    
+
+    
+}
+
 .container{
     width: 100vw;
-    margin-left: 6rem;
+    /* margin-left: 6rem; */
     text-align: center;
     align-items: center;
     justify-content: center;
+    color: #e8d0a9;;
+    font-size: 1.3rem;
+    text-align: center;
+    text-shadow: 2px 2px black;
+    
+}
+
+
+.search{
+    background: none
+}
+#index-head {
+    text-align: center;
+    text-shadow: 3px 3px black;
+    color: #e8d0a9;;
+    margin: 7%;
+    font-size: 4.2rem;
+}
+.navbar-brand{
+    margin-right: 1.2rem;
+    font-size: 1.9rem;
+    color:#e8d0a9;
+    font-family: 'David Libre', serif;
+}
+.nav-link{
+    color:#e8d0a9;
+    /* padding: .8rem; */
+    
+    font-family: 'David Libre', serif;
+    /* text-shadow: 2px 2px black; */
+    font-size: 1.5rem
+}
+.nav-link:hover, .navbar-brand:hover{
+
+    
+    color: #b7afa3;
+}
+.navbar{
+    background: #9c9f84;
+    height: 3.3rem;
+    border: 2px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 20px black;
+}
+
+.login{
+    justify-content: center;
+    text-align: center;
+    align-items: center;
 }

@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>{{ username }}'s Profile </h1>
-  
-    <!-- <a href="/cats/{{ cat.id }}"> -->
-     
-    <!-- </a> -->
+
+  <h1>{{ username }}'s Wishlist </h1>
+  {% for i in wishlists %}
+  <h4>{{ i.title }}</h4>
+  <img src="{{ i.img_url }}" alt="img">
+  {% endfor %}
   
 
     {% endblock %}

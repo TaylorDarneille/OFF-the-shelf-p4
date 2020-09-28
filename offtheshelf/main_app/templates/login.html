@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
-<div class="container text-center login">
+<div class="container login">
   <h1 class="title">Login</h1>
   <form method="POST" action=".">
     {% csrf_token %} {{ form.as_p }}
