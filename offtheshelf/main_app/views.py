@@ -15,17 +15,10 @@ from decouple import config
 import os
 
 
-# Create your views here.
-# @method_decorator(login_required, name='dispatch')
-# class CommentCreate(CreateView):
-#     model = Comment
-#     fields = ['content']
 
-# @method_decorator(login_required, name='dispatch')
-# class WishlistCreate(CreateView):
+# class WishlistDelete(DeleteView):
 #     model = Wishlist
-#     fields = '__all__'
-
+#     success_url = '/profile'
 ######################### Index #########################
 def index(request):    
     return render(request, 'index.html')
@@ -72,21 +65,25 @@ def signup_view(request):
 @login_required
 def profile(request, username):
     if request.method == "POST":
-        title = request.POST.get("title")
-        id = request.POST.get("id")
-        img_url = request.POST.get("image")
-        user = request.user 
-
-        exist = Wishlist.objects.filter(book_id=id)
-        if exist:
-            pass
+        delete = request.POST.get("delete")
+        if delete:
+            Wishlist.objects.filter(book_id=delete).delete()
         else:
-            Wishlist.objects.create(
-                title = title,
-                book_id = id,
-                img_url = img_url,
-                user = user
-            )
+            title = request.POST.get("title")
+            id = request.POST.get("id")
+            img_url = request.POST.get("image")
+            user = request.user 
+
+            exist = Wishlist.objects.filter(book_id=id)
+            if exist:
+                pass
+            else:
+                Wishlist.objects.create(
+                    title = title,
+                    book_id = id,
+                    img_url = img_url,
+                    user = user
+                )
     user = User.objects.get(username=username)
     wishlists = Wishlist.objects.filter(user=user)
     return render(request, 'profile.html', {'username': username, 'wishlists': wishlists})
