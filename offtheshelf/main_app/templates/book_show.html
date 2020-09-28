@@ -8,6 +8,7 @@
 <form action="/user/{{user.username}}/" method="POST">
     {% csrf_token %}
     <input hidden type="text" value="{{ detail.title }}" name="title">
+    <input hidden type="text" value="{{ detail.img_url }}" name="image">
     <input type="hidden" value={{ detail.id }} name="id">
     <button type="submit">Add to Wishlist!</button>
 </form>
