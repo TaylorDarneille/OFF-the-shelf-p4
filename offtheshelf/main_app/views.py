@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .forms import  CommentForm
-from .models import Comment
+# from .forms import  CommentForm
+from .models import Comment, Wishlist
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
@@ -21,15 +21,20 @@ class CommentCreate(CreateView):
     model = Comment
     fields = ['content']
 
+@method_decorator(login_required, name='dispatch')
+class WishlistCreate(CreateView):
+    model = Wishlist
+    fields = '__all__'
+
     ## how to pass in book id to post a comment
 
-    def form_valid(self, form):
-        # This lets us catch the PK, if we didn't do this we'd have no way of accessing this pk from this CRUD right here
-        self.object = form.save(commit=False) # Don't post to DB until I say so, this is the form validation
-        self.object.user = self.request.user
-        user = self.object.user
-        self.object.save() # This gives us access to the PK through the self.object
-        return HttpResponseRedirect('/user/'+str(user.username))
+    # def form_valid(self, form):
+    #     # This lets us catch the PK, if we didn't do this we'd have no way of accessing this pk from this CRUD right here
+    #     self.object = form.save(commit=False) # Don't post to DB until I say so, this is the form validation
+    #     self.object.user = self.request.user
+    #     user = self.object.user
+    #     self.object.save() # This gives us access to the PK through the self.object
+    #     return HttpResponseRedirect('/user/'+str(user.username))
 
 
 def index(request):
@@ -74,8 +79,18 @@ def signup_view(request):
         return render(request, 'signup.html', {'form': form})
 @login_required
 def profile(request, username):
+    if request.method == "POST":
+        title = request.POST.get("title")
+        id = request.POST.get("id")
+        user = request.user 
+        Wishlist.objects.create(
+            title = title,
+            book_id = id,
+            user = user
+        )
     user = User.objects.get(username=username)
-    return render(request, 'profile.html', {'username': username})
+    wishlists = Wishlist.objects.filter(user = user)
+    return render(request, 'profile.html', {'username': username, 'wishlists': wishlists})
 
 def search_results(request):
     if request.method == 'POST':
@@ -136,32 +151,22 @@ def book_show(request, id):
             "link" : book["buy_links"]["buy_link"][i]["link"]
         }
         buyLinks.append(buy_links)
-    # print(similar)
+    
     detail = {
         "title": book["title"],
         "description": book["description"],
         "img_url": book["image_url"],
         "average_rating": book["average_rating"],
         "id": book["id"],
-        # "similar_books": similar_books,
     }
+    # user = User.objects.get(username = username)
+    return render(request, 'book_show.html', {
+        "detail": detail,
+        "similar": similar,
+        "buyLinks": buyLinks,
+        "comments":comments,
+        # "username": username
+    })
 
-    
-    # print(jsonData)
-    # print(book)
-    # print(similar)
-    return render(request, 'book_show.html', {"detail": detail, "similar": similar, "buyLinks": buyLinks, "comments":comments})
 
-# @method_decorator(login_required, name='dispatch')
-# class CommentCreate(CreateView, pk):
-#     model = Comment
-#     fields = ['content']
-
-#     def form_valid(self, form):
-#         # This lets us catch the PK, if we didn't do this we'd have no way of accessing this pk from this CRUD right here
-#         self.object = form.save(commit=False) # Don't post to DB until I say so, this is the form validation
-#         self.object.user = self.request.user
-#         user = self.object.user
-#         self.object.save() # This gives us access to the PK through the self.object
-#         return HttpResponseRedirect('/user/'+str(user.username))
 

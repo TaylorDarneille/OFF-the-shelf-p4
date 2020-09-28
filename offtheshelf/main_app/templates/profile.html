@@ -3,11 +3,9 @@
 {% block content %}
 
   <h1>{{ username }}'s Wishlist </h1>
-
-  
-    <!-- <a href="/cats/{{ cat.id }}"> -->
-     
-    <!-- </a> -->
+  {% for i in wishlists %}
+  <h4>{{ i.title }}</h4>
+  {% endfor %}
   
 
     {% endblock %}
