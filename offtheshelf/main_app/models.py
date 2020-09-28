@@ -18,3 +18,10 @@ class Comment(models.Model):
 
     def str(self):
         return self.content
+
+class LetsTry(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = content = models.CharField(max_length=250)
+    
+    def __str__(self):
+        return self.content
