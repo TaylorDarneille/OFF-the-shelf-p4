@@ -1,3 +1,6 @@
+/* *{
+    border: solid red 2px;
+} */
 body{
     background-image: url("./assets/newbook.jpg");
     min-height: 500px;
@@ -8,20 +11,45 @@ body{
     font-family: 'David Libre', serif;
     text-shadow: 2px 2px black;
     color: #e8d0a9;
-    background-color: #e8d0a9;;
+    background-color: #e8d0a9;
+
+}
+.comment-label{
+
+}
+input{
+    border: 2px
 }
 .opaque{
     width: 50vw;
     grid-template-columns: 1fr 1fr;
     text-align: center;
     background: rgba(0, 0, 0, 0.4);
-    
-
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     
 }
-
-.container{
+.content{
     width: 100vw;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+}
+h5{
+    width: 50px;
+}
+
+audio { 
+    width: 600px; 
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.616);
+    border-radius: 90px;
+    transform: scale(1.05);
+    color:pink;
+  }
+.container{
+    width: 600px;
     /* margin-left: 6rem; */
     text-align: center;
     align-items: center;

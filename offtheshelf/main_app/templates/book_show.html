@@ -14,13 +14,13 @@
 </form>
 <form action="/book_show/{{ detail.id }}/" method="POST">
     {% csrf_token %}
-    <label for="content">Add a comment:</label>
+    <label for="content">Add a comment:</label><br />
     <input type="text" name="content">
     <input type="hidden" name="id" value={{ detail.id }}>
     <button type="submit">Submit</button>
 </form>
 <div class="comments">
-    <h3>Comments: </h3>
+    <h3 class="comment-label">Comments: </h3>
     {% for comment in comments %}
     <h5>{{ comment.user.username }}</h5>
     <h5>{{ comment.content }}</h5>

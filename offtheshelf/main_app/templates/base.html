@@ -11,10 +11,7 @@
       </style>
   </head>
   <body>
-    <audio controls autoplay loop >
-      <source src="../static/assets/field.mp3" type="audio/mp3">
-    Your browser does not support the audio element.
-    </audio>
+    
     <header>
       <nav class="navbar navbar-expand-lg">
         
@@ -37,14 +34,21 @@
         </div>
       </nav>
     </header>
+    <div class="content">
     <div class="opaque">
     <h1 id="index-head">Off The Shelf</h1>
 
-    <div class="container text-center" id="background">
+    
+      </audio>
 
     {%block content%}
 
     {% endblock %}
+    <!-- <audio src="../static/assets/field.mp3" autoplay controls loop></audio> -->
+    <!-- <div class="container text-center" id="background">
+      <audio autoplay loop >
+        <source src="../static/assets/field.mp3" type="audio/mp3">
+      Your browser does not support the audio element. -->
   </div>
 </div>
 
