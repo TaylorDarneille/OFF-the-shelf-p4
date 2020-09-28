@@ -16,9 +16,7 @@ import os
 
 
 
-# class WishlistDelete(DeleteView):
-#     model = Wishlist
-#     success_url = '/profile'
+
 ######################### Index #########################
 def index(request):    
     return render(request, 'index.html')
@@ -121,11 +119,13 @@ def book_show(request, id):
         content = request.POST.get("content")
         id = request.POST.get("id")
         user = request.user
+        title = request.POST.get("title")
 
         Comment.objects.create(
             content=content,
             book_id = id,
-            user = user
+            user = user,
+            title = title
         )
 
     comments = Comment.objects.filter(book_id=id)

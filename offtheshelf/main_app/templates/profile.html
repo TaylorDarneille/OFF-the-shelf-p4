@@ -15,7 +15,8 @@
 
   <h2>{{ username }}'s Comments</h2>
   {% for i in comments %}
-  <h4></h4>
+  <a href="/book_show/{{i.book_id}}"><h4>Title:{{i.title}}</h4></a>
+  <h4>{{i.content}}</h4>
   {% endfor %}
   
 
