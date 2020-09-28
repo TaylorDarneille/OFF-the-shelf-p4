@@ -17,6 +17,11 @@
   {% for i in comments %}
   <a href="/book_show/{{i.book_id}}"><h4>Title:{{i.title}}</h4></a>
   <h4>{{i.content}}</h4>
+  <form action="" method="POST">
+    {% csrf_token %}
+    <input hidden type="text" name="delete_comment" value={{i.id}}>
+    <button type="submit">Delete</button>
+  </form>
   {% endfor %}
   
 

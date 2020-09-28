@@ -63,25 +63,29 @@ def signup_view(request):
 @login_required
 def profile(request, username):
     if request.method == "POST":
-        delete = request.POST.get("delete")
-        if delete:
-            Wishlist.objects.filter(book_id=delete).delete()
+        delete_comment = request.POST.get("delete_comment")
+        if delete_comment:
+            Comment.objects.filter(id=delete_comment).delete()
         else:
-            title = request.POST.get("title")
-            id = request.POST.get("id")
-            img_url = request.POST.get("image")
-            user = request.user 
-
-            exist = Wishlist.objects.filter(book_id=id)
-            if exist:
-                pass
+            delete = request.POST.get("delete")
+            if delete:
+                Wishlist.objects.filter(book_id=delete).delete()
             else:
-                Wishlist.objects.create(
-                    title = title,
-                    book_id = id,
-                    img_url = img_url,
-                    user = user
-                )
+                title = request.POST.get("title")
+                id = request.POST.get("id")
+                img_url = request.POST.get("image")
+                user = request.user 
+
+                exist = Wishlist.objects.filter(book_id=id)
+                if exist:
+                    pass
+                else:
+                    Wishlist.objects.create(
+                        title = title,
+                        book_id = id,
+                        img_url = img_url,
+                        user = user
+                    )
     user = User.objects.get(username=username)
     wishlists = Wishlist.objects.filter(user=user)
     comments = Comment.objects.filter(user=user)
