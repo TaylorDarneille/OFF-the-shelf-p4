@@ -14,9 +14,33 @@ body{
     background-color: #e8d0a9;
 
 }
+.book-img{
+    height: 11rem;
+    width: 8rem
+}
+.book-info{
+    font-family: 'Montserrat', sans-serif;
+    color: #F6F3E3
+
+}
+.title-link{
+    color: #e8d0a9;
+
+}
+.title-link:hover{
+    color: #b7afa3;
+}
+button{
+    background: #b8a99c67;
+    border-radius: 10%;
+    border: solid 2px #b8a99c67;
+    font-family: 'Montserrat', sans-serif;
+
+}
 .comment-label{
 
 }
+
 input{
     border: 2px
 }
