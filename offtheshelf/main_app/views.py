@@ -1,7 +1,4 @@
 from django.shortcuts import render
-from django.shortcuts import render
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-# from .forms import  CommentForm
 from .models import Comment, Wishlist
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.http import HttpResponseRedirect, HttpResponse
@@ -52,7 +49,7 @@ def signup_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return HttpResponseRedirect('/user/'+str(user))
+            return HttpResponseRedirect('/')
         else: 
             return HttpResponse('<h1>Try Again</h1>')
     else:
@@ -178,5 +175,19 @@ def book_show(request, id):
         "comments":comments,
     })
 
+class CommentUpdate(UpdateView):
+    model = Comment
+    fields = ['content']
+    # user = request.user
+    # success_url = '/user/'
+    def form_valid(self, form): 
+        self.object = form.save(commit=False) 
+        self.object.save()
+        user = self.object.user.username
+        return HttpResponseRedirect('/user/' + user)
 
+# def handler404(request):
+#     return render(request, '404.html', status=404)
+# def handler500(request):
+#     return render(request, '500.html', status=500)
 
