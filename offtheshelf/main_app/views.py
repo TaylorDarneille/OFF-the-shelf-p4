@@ -16,33 +16,21 @@ import os
 
 
 # Create your views here.
-@method_decorator(login_required, name='dispatch')
-class CommentCreate(CreateView):
-    model = Comment
-    fields = ['content']
+# @method_decorator(login_required, name='dispatch')
+# class CommentCreate(CreateView):
+#     model = Comment
+#     fields = ['content']
 
-@method_decorator(login_required, name='dispatch')
-class WishlistCreate(CreateView):
-    model = Wishlist
-    fields = '__all__'
+# @method_decorator(login_required, name='dispatch')
+# class WishlistCreate(CreateView):
+#     model = Wishlist
+#     fields = '__all__'
 
-    ## how to pass in book id to post a comment
-
-    # def form_valid(self, form):
-    #     # This lets us catch the PK, if we didn't do this we'd have no way of accessing this pk from this CRUD right here
-    #     self.object = form.save(commit=False) # Don't post to DB until I say so, this is the form validation
-    #     self.object.user = self.request.user
-    #     user = self.object.user
-    #     self.object.save() # This gives us access to the PK through the self.object
-    #     return HttpResponseRedirect('/user/'+str(user.username))
-
-
-def index(request):
-    
+######################### Index #########################
+def index(request):    
     return render(request, 'index.html')
-    # return render(request, 'index.html', {
-        # 'msg': data['msg']
-    # })
+
+######################### Login #########################
 def login_view(request):
     if request.method =="POST":
         form = AuthenticationForm(request, request.POST)
@@ -61,10 +49,12 @@ def login_view(request):
         form = AuthenticationForm()
         return render(request, 'login.html', {'form':form})
 
+######################### Logout #########################
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/')
 
+######################### Signup #########################
 def signup_view(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -77,21 +67,29 @@ def signup_view(request):
     else:
         form = UserCreationForm()
         return render(request, 'signup.html', {'form': form})
+
+######################### Profile #########################        
 @login_required
 def profile(request, username):
     if request.method == "POST":
         title = request.POST.get("title")
         id = request.POST.get("id")
         user = request.user 
-        Wishlist.objects.create(
-            title = title,
-            book_id = id,
-            user = user
-        )
+
+        exist = Wishlist.objects.filter(book_id=id)
+        if exist:
+            pass
+        else:
+            Wishlist.objects.create(
+                title = title,
+                book_id = id,
+                user = user
+            )
     user = User.objects.get(username=username)
-    wishlists = Wishlist.objects.filter(user = user)
+    wishlists = Wishlist.objects.filter(user=user)
     return render(request, 'profile.html', {'username': username, 'wishlists': wishlists})
 
+######################### Search Result #########################
 def search_results(request):
     if request.method == 'POST':
         search = request.POST.get("search")
@@ -102,8 +100,7 @@ def search_results(request):
         jsonData = json.dumps(data)
         theData = json.loads(jsonData)
         searchList = theData["GoodreadsResponse"]["search"]["results"]["work"]
-        
-        
+    
         booklist = []
 
         for i in range(10):
@@ -118,7 +115,7 @@ def search_results(request):
             
     return render(request, 'search_results.html', {"booklist": booklist} )
 
-
+######################### Book Show #########################
 def book_show(request, id):
     if request.method == 'POST':
         content = request.POST.get("content")
@@ -139,33 +136,42 @@ def book_show(request, id):
     book = theData["GoodreadsResponse"]["book"]
     similar = []
     buyLinks = []
-    for i in range(10):
-        similar_books = {
-            "title" : book["similar_books"]["book"][i]["title"],
-            "image_url": book["similar_books"]["book"][i]["image_url"]
-        }
-        similar.append(similar_books)
+
+    def clean_text(txt):
+        newTxt = ''.join(txt.split('<br />'))
+        newTxt = ''.join(newTxt.split('<b>'))
+        newTxt = ''.join(newTxt.split('</b>'))
+        newTxt = ''.join(newTxt.split('<i>'))
+        newTxt = ''.join(newTxt.split('</i>'))
+        return(newTxt)
+    
+    detail = {
+        "title": book["title"],
+        "description": clean_text(book["description"]),
+        "img_url": book["image_url"],
+        "average_rating": book["average_rating"],
+        "id": book["id"],
+    }
+
     for i in range(10):
         buy_links = {
             "name" : book["buy_links"]["buy_link"][i]["name"],
             "link" : book["buy_links"]["buy_link"][i]["link"]
         }
         buyLinks.append(buy_links)
-    
-    detail = {
-        "title": book["title"],
-        "description": book["description"],
-        "img_url": book["image_url"],
-        "average_rating": book["average_rating"],
-        "id": book["id"],
-    }
-    # user = User.objects.get(username = username)
+
+    for i in range(10):
+        similar_books = {
+            "title" : book["similar_books"]["book"][i]["title"],
+            "image_url": book["similar_books"]["book"][i]["image_url"]
+        }
+        similar.append(similar_books)
+        
     return render(request, 'book_show.html', {
         "detail": detail,
         "similar": similar,
         "buyLinks": buyLinks,
         "comments":comments,
-        # "username": username
     })
 
 
