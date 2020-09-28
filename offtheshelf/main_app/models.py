@@ -7,6 +7,7 @@ class Wishlist(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     book_id = models.IntegerField()
     title = models.CharField(max_length=100)
+    img_url = models.CharField(max_length=150)
     def __str__(self):
         return self.title
 
@@ -16,4 +17,11 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def str(self):
+        return self.content
+
+class LetsTry(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = content = models.CharField(max_length=250)
+    
+    def __str__(self):
         return self.content
