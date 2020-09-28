@@ -74,6 +74,7 @@ def profile(request, username):
     if request.method == "POST":
         title = request.POST.get("title")
         id = request.POST.get("id")
+        img_url = request.POST.get("image")
         user = request.user 
 
         exist = Wishlist.objects.filter(book_id=id)
@@ -83,6 +84,7 @@ def profile(request, username):
             Wishlist.objects.create(
                 title = title,
                 book_id = id,
+                img_url = img_url,
                 user = user
             )
     user = User.objects.get(username=username)
