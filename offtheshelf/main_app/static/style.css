@@ -103,7 +103,7 @@ audio {
 #index-head {
     text-align: center;
     text-shadow: 3px 3px black;
-    color: #e8d0a9;;
+    color: #e8d0a9;
     margin: 7%;
     font-size: 4.2rem;
 }
@@ -178,6 +178,11 @@ audio {
       color:#000000;
        
   }
-  table{
+  .login-form{
+      color:#e8d0a9; 
       
+
+  }
+  input{
+      background:orange
   }
