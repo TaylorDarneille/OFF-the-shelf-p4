@@ -145,7 +145,7 @@ def book_show(request, id):
         newTxt = ''.join(newTxt.split('<i>'))
         newTxt = ''.join(newTxt.split('</i>'))
         return(newTxt)
-    
+        
     detail = {
         "title": book["title"],
         "description": clean_text(book["description"]),
