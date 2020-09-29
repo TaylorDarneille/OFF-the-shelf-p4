@@ -146,6 +146,6 @@ audio {
     /* grid-template-columns: 1fr 1fr 1fr 1fr; */
     /* grid-auto-columns: 1fr; */
   }
-  .fourofour{
-      background-image: url("../static/assets/bookworm.gif");
-  }
+  /* .fourofour{ */
+      /* background-image: url("/assets/bookworm.gif"); */
+  /* } */
