@@ -181,8 +181,11 @@ class CommentUpdate(UpdateView):
         user = self.object.user.username
         return HttpResponseRedirect('/user/' + user)
 
-# def handler404(request):
-#     return render(request, '404.html', status=404)
+# def handler404(request, *args, **argv):
+#     response = render_to_response('404.html', {},
+#                                   context_instance=RequestContext(request))
+#     response.status_code = 404
+#     return response
 # def handler500(request):
 #     return render(request, '500.html', status=500)
 
