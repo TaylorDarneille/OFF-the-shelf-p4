@@ -162,12 +162,6 @@ def book_show(request, id):
         }
         similar.append(similar_books)
 
-    for i in range(3):
-        buy_links = {
-            "name" : book["buy_links"]["buy_link"][i]["name"],
-            "link" : book["buy_links"]["buy_link"][i]["link"]
-        }
-        buyLinks.append(buy_links)
         
     return render(request, 'book_show.html', {
         "detail": detail,
