@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 
+
+
+
 {% block content %}
 
   <h1>{{ username }}'s Wishlist </h1>
@@ -8,6 +11,8 @@
   <img src="{{ i.img_url }}" alt="img">
   <form action="" method="POST">
     {% csrf_token %}
+    
+
     <input hidden type="text" name="delete" value="{{i.book_id}}">
     <button type="submit">Delete from Wishlist</button>
   </form>
