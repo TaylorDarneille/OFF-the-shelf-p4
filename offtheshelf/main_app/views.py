@@ -10,6 +10,30 @@ from django.utils.decorators import method_decorator
 import requests, xmltodict, json, dotenv
 from decouple import config
 import os
+# from imdb import IMDb
+
+
+
+# # create an instance of the IMDb class
+# ia = IMDb()
+
+# # get a movie
+# movie = ia.get_movie('0133093')
+
+# # print the names of the directors of the movie
+# print('Directors:')
+# for director in movie['directors']:
+#     print(director['name'])
+
+# # print the genres of the movie
+# print('Genres:')
+# for genre in movie['genres']:
+#     print(genre)
+
+# # search for a person name
+# people = ia.search_person('Mel Gibson')
+# for person in people:
+#    print(person.personID, person['name'])
 
 
 
@@ -139,16 +163,33 @@ def book_show(request, id):
     buyLinks = []
 
     def clean_text(txt):
-        newTxt = ''.join(txt.split('<br />'))
-        newTxt = ''.join(newTxt.split('<b>'))
-        newTxt = ''.join(newTxt.split('</b>'))
-        newTxt = ''.join(newTxt.split('<i>'))
-        newTxt = ''.join(newTxt.split('</i>'))
-        return(newTxt)
+        unwanted_tags = ['<br />', '<b>', '</b>', '<i>', '</i>', '<em>', '</em>']
+        for i in unwanted_tags:
+            if i in txt:
+                txt = ''.join(txt.split(i))
+        return(txt)
+
+    # check if book description exist
+    description = book["description"]
+    if description: # clean description if it exits
+        description = clean_text(book["description"])
+    else:
+        description = ''
     
+    # check if author is a dict
+    author_type = type(book["authors"]["author"])
+    if author_type is dict:
+        author = book["authors"]["author"]["name"]
+        author_link = book["authors"]["author"]["link"]
+    else:
+        author = book["authors"]["author"][0]["name"]
+        author_link = book["authors"]["author"][0]["link"]
+
     detail = {
         "title": book["title"],
-        "description": clean_text(book["description"]),
+        "author": author,
+        "author_link": author_link,
+        "description": description,
         "img_url": book["image_url"],
         "average_rating": book["average_rating"],
         "id": book["id"],
