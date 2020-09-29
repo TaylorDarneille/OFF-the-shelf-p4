@@ -34,7 +34,7 @@
     {% endfor %}
 </div>
 {% for i in similar %}
-<h1>{{ i.title }}</h1>
+<a href="/book_show/{{ i.id }}"><h1>{{ i.title }}</h1></a>
 <img src={{i.image_url}} alt="img">
 {% endfor %}
 
