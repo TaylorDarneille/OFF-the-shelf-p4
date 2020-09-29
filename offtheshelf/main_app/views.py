@@ -29,7 +29,7 @@ def login_view(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponseRedirect('/user/'+u)
+                    return HttpResponseRedirect('/user/'+str(user))
                 else:print('The account has been disable YOU SCOUNDREL')
         else:
             print('The username and/or password is incorrect. You are less of a scoundrel')
@@ -152,6 +152,7 @@ def book_show(request, id):
         "img_url": book["image_url"],
         "average_rating": book["average_rating"],
         "id": book["id"],
+        "isbn": book["isbn"]
     }
 
     for i in range(6):
@@ -161,12 +162,6 @@ def book_show(request, id):
         }
         similar.append(similar_books)
 
-    for i in range(3):
-        buy_links = {
-            "name" : book["buy_links"]["buy_link"][i]["name"],
-            "link" : book["buy_links"]["buy_link"][i]["link"]
-        }
-        buyLinks.append(buy_links)
         
     return render(request, 'book_show.html', {
         "detail": detail,
