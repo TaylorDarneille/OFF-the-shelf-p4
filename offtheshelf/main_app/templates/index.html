@@ -3,9 +3,14 @@
     <div class="container search"></div>
     <form action="/search_results/" method="POST">
     {% csrf_token %}
+    <h4>Welcome to Off The Shelf, your one stop spot for all things books!
+        Search by title or by author in the search bar below. You can also find
+        similar books, reviews about the books and even a link to purchase. So get started... 
+        your next great adventure is only one page away.
+    </h4><br />
 
-        <label for="search">Search:</label>
-        <input type="text" name="search">
+        <label for="search">Search:</label><br/>
+        <input class="input-search" type="text" name="search"><br/><br/>
         <button type="submit">Submit</button>
     </form>
 {% endblock %}
