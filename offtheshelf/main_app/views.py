@@ -157,11 +157,11 @@ def book_show(request, id):
 
     for i in range(6):
         similar_books = {
+            "id": book["similar_books"]["book"][i]["id"],
             "title" : book["similar_books"]["book"][i]["title"],
             "image_url": book["similar_books"]["book"][i]["image_url"]
         }
         similar.append(similar_books)
-
         
     return render(request, 'book_show.html', {
         "detail": detail,
