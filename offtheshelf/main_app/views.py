@@ -168,8 +168,15 @@ def book_show(request, id):
             if i in txt:
                 txt = ''.join(txt.split(i))
         return(txt)
+
+    # check if book description exist
+    description = book["description"]
+    if description: # clean description if it exits
+        description = clean_text(book["description"])
+    else:
+        description = ''
     
-    print(book["authors"]["author"])
+    # check if author is a dict
     author_type = type(book["authors"]["author"])
     if author_type is dict:
         author = book["authors"]["author"]["name"]
@@ -182,7 +189,7 @@ def book_show(request, id):
         "title": book["title"],
         "author": author,
         "author_link": author_link,
-        "description": clean_text(book["description"]),
+        "description": description,
         "img_url": book["image_url"],
         "average_rating": book["average_rating"],
         "id": book["id"],
