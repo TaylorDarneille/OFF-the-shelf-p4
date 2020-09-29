@@ -154,19 +154,19 @@ def book_show(request, id):
         "id": book["id"],
     }
 
-    for i in range(10):
-        buy_links = {
-            "name" : book["buy_links"]["buy_link"][i]["name"],
-            "link" : book["buy_links"]["buy_link"][i]["link"]
-        }
-        buyLinks.append(buy_links)
-
-    for i in range(10):
+    for i in range(6):
         similar_books = {
             "title" : book["similar_books"]["book"][i]["title"],
             "image_url": book["similar_books"]["book"][i]["image_url"]
         }
         similar.append(similar_books)
+
+    for i in range(3):
+        buy_links = {
+            "name" : book["buy_links"]["buy_link"][i]["name"],
+            "link" : book["buy_links"]["buy_link"][i]["link"]
+        }
+        buyLinks.append(buy_links)
         
     return render(request, 'book_show.html', {
         "detail": detail,
