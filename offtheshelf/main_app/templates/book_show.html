@@ -5,11 +5,11 @@
 <h3>avg rating: {{detail.average_rating}}</h3>
 <div>{{ detail.description }}</div>
 <h3>Buy links</h3>
-<h5>
-    <a class="buy-link" href="https://www.barnesandnoble.com/s/{{ detail.title }}/_/N-w">Barnes and Noble</a>
-    <a class="buy-link" href="https://www.amazon.com/s?k={{ detail.isbn }}&i=stripbooks&ref=nb_sb_noss">Amazon</a>
-    <a class="buy-link" href="https://www.amazon.com/s?k={{ detail.isbn }}&i=digital-text&ref=nb_sb_noss">Kindle</a>
-</h5>
+
+    <h4 class="buy-link"><a href="https://www.barnesandnoble.com/s/{{ detail.title }}/_/N-w">Barnes and Noble</a></h4>
+    <h4 class="buy-link"><a href="https://www.amazon.com/s?k={{ detail.isbn }}&i=stripbooks&ref=nb_sb_noss">Amazon</a></h4>
+    <h4 class="buy-link"><a href="https://www.amazon.com/s?k={{ detail.isbn }}&i=digital-text&ref=nb_sb_noss">Kindle</a></h4>
+
 
 <img src={{detail.img_url}} alt="img">
 <form action="/user/{{user.username}}/" method="POST">
