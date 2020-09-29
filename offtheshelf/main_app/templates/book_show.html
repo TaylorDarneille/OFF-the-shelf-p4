@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {%block content%}
 <h1>{{ detail.title }}</h1>
-<a href="{{ detail.author_link }}"><h2>{{ detail.author }}</h2></a>
+<h2>Author: <a href="{{ detail.author_link }}">{{ detail.author }}</a></h2>
 <h3>avg rating: {{detail.average_rating}}</h3>
 <div>{{ detail.description }}</div>
-<h3>Buy links</h3>
+<h3>Buy links:</h3>
 
     <h4 class="buy-link"><a href="https://www.barnesandnoble.com/s/{{ detail.title }}/_/N-w">Barnes and Noble</a></h4>
     <h4 class="buy-link"><a href="https://www.amazon.com/s?k={{ detail.isbn }}&i=stripbooks&ref=nb_sb_noss">Amazon</a></h4>
@@ -34,11 +34,12 @@
     <h5>{{ comment.content }}</h5>
     {% endfor %}
 </div>
+
+<h3>Similar Books:</h3>
 {% for i in similar %}
 <a href="/book_show/{{ i.id }}"><h1>{{ i.title }}</h1></a>
 <img src={{i.image_url}} alt="img">
 {% endfor %}
-
 
 <style>
     #goodreads-widget {
@@ -78,7 +79,7 @@
     <div id="goodreads-widget">
         <div id="gr_header">
           <h1>
-            <a rel="nofollow" href="https://www.goodreads.com/book/show/{{ detail.id }}{{ detail.title }}">
+            <a rel="nofollow" href="https://www.goodreads.com/book/show/{{ detail.id }}">
               Goodreads reviews for {{ detail.title }}
             </a>
           </h1>
