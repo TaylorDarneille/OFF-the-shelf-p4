@@ -139,17 +139,25 @@ def book_show(request, id):
     buyLinks = []
 
     def clean_text(txt):
-        newTxt = ''.join(txt.split('<br />'))
-        newTxt = ''.join(newTxt.split('<b>'))
-        newTxt = ''.join(newTxt.split('</b>'))
-        newTxt = ''.join(newTxt.split('<i>'))
-        newTxt = ''.join(newTxt.split('</i>'))
-        return(newTxt)
-        
+        unwanted_tags = ['<br />', '<b>', '</b>', '<i>', '</i>', '<em>', '</em>']
+        for i in unwanted_tags:
+            if i in txt:
+                txt = ''.join(txt.split(i))
+        return(txt)
+    
+    print(book["authors"]["author"])
+    author_type = type(book["authors"]["author"])
+    if author_type is dict:
+        author = book["authors"]["author"]["name"]
+        author_link = book["authors"]["author"]["link"]
+    else:
+        author = book["authors"]["author"][0]["name"]
+        author_link = book["authors"]["author"][0]["link"]
+
     detail = {
         "title": book["title"],
-        "author": book["authors"]["author"]["name"],
-        "author_link": book["authors"]["author"]["link"],
+        "author": author,
+        "author_link": author_link,
         "description": clean_text(book["description"]),
         "img_url": book["image_url"],
         "average_rating": book["average_rating"],
