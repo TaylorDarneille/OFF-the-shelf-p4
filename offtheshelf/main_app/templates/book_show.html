@@ -1,12 +1,10 @@
 {% extends 'base.html' %}
 {%block content%}
 <h1>{{ detail.title }}</h1>
-<img  class="book-img" src={{detail.img_url}} alt="img">
-<h3 class="book-info">Average Rating: <br />{{detail.average_rating}} ☆</h3>
-<h3 class="book-info">Synopsis: <br /> </h3>
-    <div class="book-info">{{ detail.description }}</div>
+<h3>avg rating: {{detail.average_rating}}</h3>
+<div>{{ detail.description }}</div>
 <!-- <img src={{detail.similar_books.book}} alt="img"> -->
-
+<img src={{detail.img_url}} alt="img">
 <form action="/user/{{user.username}}/" method="POST">
     {% csrf_token %}
     <input hidden type="text" value="{{ detail.title }}" name="title">
@@ -16,14 +14,14 @@
 </form>
 <form action="/book_show/{{ detail.id }}/" method="POST">
     {% csrf_token %}
-    <label for="content">Add a comment:</label><br />
+    <label for="content">Add a comment:</label>
     <input type="text" name="content">
     <input type="hidden" name="id" value={{ detail.id }}>
-    <input type="hidden" name="title" value="{{ detail.title}}">
+    <input type="hidden" name="title" value="{{ detail.title }}">
     <button type="submit">Submit</button>
 </form>
 <div class="comments">
-    <h3 class="comment-label">Comments: </h3>
+    <h3>Comments: </h3>
     {% for comment in comments %}
     <h5>{{ comment.user.username }}</h5>
     <h5>{{ comment.content }}</h5>
