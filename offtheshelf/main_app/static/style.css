@@ -105,7 +105,7 @@ audio {
 #index-head {
     text-align: center;
     text-shadow: 3px 3px black;
-    color: #e8d0a9;;
+    color: #e8d0a9;
     margin: 7%;
     font-size: 4.2rem;
 }
@@ -124,7 +124,7 @@ audio {
     font-size: 1.2rem
 }
 .nav-link:hover, .navbar-brand:hover{
-
+    
     
     color: #b7afa3;
 }
@@ -136,6 +136,7 @@ audio {
     box-shadow: 0px 2px 20px black;
 }
 
+
 .login{
     justify-content: center;
     text-align: center;
@@ -145,6 +146,7 @@ audio {
     height: 38px;
     width: 38px;
 }
+
 .footer {
     position: fixed;
     height: 2rem;
@@ -164,15 +166,15 @@ audio {
   /* .fourofour{ */
       /* background-image: url("/assets/bookworm.gif"); */
   /* } */
-  .buy-link{
+  .buy-link {
       font-size: 1rem;
       
   }
-  .footer-names{
+  .footer-names {
       display: inline-block;
       margin-left: 2.5rem;
   }
-  .input-search{
+  .input-search {
       background: #B7B7A4;
       border: 2px;
       border-radius: 10px;
@@ -180,6 +182,16 @@ audio {
       color:#000000;
        
   }
-  table{
+  .login-form{
+      color:#e8d0a9; 
       
+
   }
+
+  
+  .navbar-nav.navbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+}
+  

@@ -34,6 +34,33 @@
             <a class="nav-link" href="/login"><img class="shelf-icon"src="/static/assets/icons8-signin-50.png" alt="add a user"> Log In</a>
             {% endif %}            
           </div>
+          <h1 class="navbar-nav navbar-center">OFF THE SHELF</h1>
+          <div class="nav navbar-nav ml-auto">
+            <img id="audio-button" class="" src="/static/assets/icons8-github.svg" alt="github">  <audio  volume="0.1" loop src="/static/assets/melancholy.mp3" id="myaudio"></audio>
+              <div class="container text-center" id="background">
+                <audio >
+                  <source src="/static/assets/melancholy.mp3" type="audio/mp3">
+                Your browser does not support the audio element.
+            </div>
+            <script>
+              var audio = document.getElementById("myaudio");
+              var button = document.getElementById('audio-button')
+              
+              audio.volume = 0.4;
+              
+              button.addEventListener('click', function(){
+                
+                if(audio.paused){
+                  audio.play()
+                
+                }
+                else{
+                  audio.pause()
+                }
+              })
+
+            </script>
+          </div>
         </div>
       </nav>
     </header>
@@ -47,21 +74,12 @@
     {%block content%}
 
     {% endblock %}
-    <audio  autoplay controls  loop src="/static/assets/melancholy.mp3" id="myaudio"></audio> -->
-    <div class="container text-center" id="background">
-      <audio >
-        <source src="/static/assets/melancholy.mp3" type="audio/mp3"> -->
-      Your browser does not support the audio element.
-  </div>
-  <script>
-    var audio = document.getElementById("myaudio");
-    audio.volume = 0.2;
-  </script>
+    
 </div>
 <div class="footer">
   <p class="footer-names">Margaret Huang <a href="https://github.com/margaret-jihua"> <img src="/static/assets/icons8-github.svg" alt="github"></a><a href="https://www.linkedin.com/in/margaret-jihua/"> <img src="/static/assets/icons8-linkedin.svg" alt="linkedin"></a> </p> <p class="footer-names"> Steven Michaud <a href="https://github.com/Michaudsr"> <img src="/static/assets/icons8-github.svg" alt="github"></a><a href="https://www.linkedin.com/in/steven-michaud/"> <img src="/static/assets/icons8-linkedin.svg" alt="linkedin"></a></p> <p class="footer-names"> Nicholas Phillips <a href="https://github.com/maestronick1"> <img src="/static/assets/icons8-github.svg" alt="github"></a><a href="https://www.linkedin.com/in/nick-phillips-23a796137/"> <img src="/static/assets/icons8-linkedin.svg" alt="linkedin"></a></p>  <p class="footer-names">Lizz West <a href="https://github.com/Lizzwest"> <img src="/static/assets/icons8-github.svg" alt="github"></a><a href="https://www.linkedin.com/in/lizzwest/"> <img src="/static/assets/icons8-linkedin.svg" alt="linkedin"></a> </p>
 </div>
-
+<script src="/static/javascript/app.js"></script>
     <!-- <footer>All Rights Reserved, Off The SHelf 2020</footer> -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
