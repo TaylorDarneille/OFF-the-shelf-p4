@@ -268,4 +268,7 @@ audio {
     left: 50%;
     transform: translatex(-50%);
 }
+.sign-up-button{
+    font-size: 20rem;
+}
   
