@@ -170,6 +170,14 @@ audio {
       max-width: 40vw;
       justify-self: center;
 }
+
+#signup{
+    max-width: 40vw;
+    justify-self: center;
+
+    overflow: wrap;
+
+}
 .shelf-icon{
     height: 38px;
     width: 38px;
@@ -268,7 +276,4 @@ audio {
     left: 50%;
     transform: translatex(-50%);
 }
-.sign-up-button{
-    font-size: 20rem;
-}
-  
+
