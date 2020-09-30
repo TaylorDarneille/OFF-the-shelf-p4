@@ -115,7 +115,7 @@ def search_results(request):
                 "id": searchList[i]["best_book"]["id"]['#text'],
             }
             booklist.append(book)
-            
+        # print(searchList[0])
     return render(request, 'search_results.html', {"booklist": booklist} )
 
 ######################### Book Show #########################
@@ -177,10 +177,47 @@ def book_show(request, id):
         "isbn": book["isbn"]
     }
 
+    def clean_title(txt):
+        if '(' in txt:
+            txt = txt.split('(')
+            return(txt[0])
+        else:
+            return(txt)
+
+
+
     
-    omdb_response = requests.get('http://www.omdbapi.com/?t={}&apikey={}'.format(detail["title"], config('omdb_key')))
+    title = clean_title(detail["title"])
+    omdb_response = requests.get('http://www.omdbapi.com/?t={}&apikey={}'.format(title, config('omdb_key')))
     movie_data = json.loads(omdb_response.content)
-    print(movie_data)
+    search_key = "Writer"
+    movie_writers = [val for key, val in movie_data.items() if search_key in key] 
+    # print("Values for substring keys : " + str(movie_writers))
+    # book_writer = detail.author
+
+    # def book_author(book_writers):
+    #     if '(novel)' in movie_writers or '(book)' in movie_writers == book_writers:
+    #         print('true')
+    #         return True
+    #     else:
+    #         print('false')
+    #         return False
+
+    def book_author(writer):
+        ls = ['novel', 'book', 'based on the  by']
+        theWriter = []
+        for i in range(len(ls)):
+            if ls[i] in writer:
+                writer = ''.join(writer.split(ls[i]))
+        writer = writer.split(',')
+        for i in writer:
+            if '()' in i:
+                theWriter = i.split(' (')
+        return (theWriter[0])
+
+    print(book_author(movie_data['Writer']))
+    # print(movie_data['Writer'])
+    # print(movie_data)
     if "Title" in movie_data:
         movie = {
             "title": movie_data["Title"],
