@@ -16,19 +16,21 @@ body{
 }
 .book-img{
     height: 11rem;
-    width: 8rem
+    width: 8rem;
 }
 .book-info{
     font-family: 'Montserrat', sans-serif;
-    color: #F6F3E3
+    color: #F6F3E3;
 
 }
-.title-link{
-    color: #e8d0a9;
+#title-link{
+     color: #e8d0a9;
+     font-size:2rem;
 
 }
-.title-link:hover{
-    color: #b7afa3;
+#title-link:hover{
+    color:#b3d38a;
+    font-size:2.2rem;
 }
 button{
     background: #b8a99c00;
@@ -63,6 +65,12 @@ input{
     margin-right: auto;
     min-height: 100vh;
     
+}
+@media(max-width:900px){
+    .opaque{
+        width: 75vw;
+
+    }
 }
 .content{
     width: 100vw;
@@ -124,7 +132,7 @@ audio {
     font-size: 1.2rem
 }
 .nav-link:hover, .navbar-brand:hover{
-
+    
     
     color: #b7afa3;
 }
@@ -136,15 +144,37 @@ audio {
     box-shadow: 0px 2px 20px black;
 }
 
+
 .login{
     justify-content: center;
     text-align: center;
     align-items: center;
 }
+.login-form{
+    justify-content: center;
+}
+#id_username{
+    background: #B7B7A4;
+      border: 2px;
+      border-radius: 10px;
+      box-shadow: 0px 2px 20px black;
+      color:#000000;
+      max-width: 40vw;
+}
+#id_password1, #id_password2{
+    background: #B7B7A4;
+      border: 2px;
+      border-radius: 10px;
+      box-shadow: 0px 2px 20px black;
+      color:#000000;
+      max-width: 40vw;
+      justify-self: center;
+}
 .shelf-icon{
     height: 38px;
     width: 38px;
 }
+
 .footer {
     position: fixed;
     height: 2rem;
@@ -160,24 +190,27 @@ audio {
     border-radius: 10px;
     box-shadow: 0px 2px 20px black;
     padding: 2px;
+    margin-top: 10rem;
+    padding-bottom: 1rem
   }
   /* .fourofour{ */
       /* background-image: url("/assets/bookworm.gif"); */
   /* } */
-  .buy-link{
+  .buy-link {
       font-size: 1rem;
-      color:#80a84c;
+      color:#e8d0a9;
       
   }
   .buy-link:hover{
-
-    color:#e8d0a9
+    color:#b3d38a;
+    
   }
-  .footer-names{
+  
+  .footer-names {
       display: inline-block;
       margin-left: 2.5rem;
   }
-  .input-search{
+  .input-search {
       background: #B7B7A4;
       border: 2px;
       border-radius: 10px;
@@ -210,21 +243,32 @@ audio {
   }
   .sim-book-title{
     font-size:1.1rem;
-    color:#80a84c
+    color:#e8d0a9;
   }
   .sim-book-title:hover{
+    color:#b3d38a
     
-    color:#e8d0a9
   }
   .audio-button{
   }
 
   .author-link{
-    color:#80a84c
+   color:#e8d0a9
   }
   .author-link:hover{
-    color:#e8d0a9
+     color:#b3d38a
   }
 
 
  
+
+  
+  .navbar-nav.navbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+}
+.sign-up-button{
+    font-size: 20rem;
+}
+  
