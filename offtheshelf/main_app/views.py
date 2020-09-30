@@ -115,12 +115,13 @@ def search_results(request):
                 "id": searchList[i]["best_book"]["id"]['#text'],
             }
             booklist.append(book)
-        # print(searchList[0])
+
     return render(request, 'search_results.html', {"booklist": booklist} )
 
 ######################### Book Show #########################
 
 def book_show(request, id):
+    # method to add a new comment
     if request.method == 'POST':
         content = request.POST.get("content")
         id = request.POST.get("id")
@@ -134,7 +135,9 @@ def book_show(request, id):
             title = title
         )
 
+    # get existing comments about this book from our database
     comments = Comment.objects.filter(book_id=id)
+    # get book details from goodreads api
     response = requests.get('https://www.goodreads.com/book/show/{}.xml?key={}'.format(id, config('key')))
     data = xmltodict.parse(response.content)
     jsonData = json.dumps(data)
@@ -143,6 +146,7 @@ def book_show(request, id):
     similar = []
     buyLinks = []
     
+    # helper function to cleanup book description
     def clean_text(txt):
         unwanted_tags = ['<br />', '<b>', '</b>', '<i>', '</i>', '<em>', '</em>']
         for i in unwanted_tags:
@@ -158,6 +162,7 @@ def book_show(request, id):
         description = ''
     
     # check if author is a dictionary
+    # TODO handle multiple authors
     author_type = type(book["authors"]["author"])
     if author_type is dict:
         author = book["authors"]["author"]["name"]
@@ -166,6 +171,7 @@ def book_show(request, id):
         author = book["authors"]["author"][0]["name"]
         author_link = book["authors"]["author"][0]["link"]
 
+    # store details of the book into a dictionary
     detail = {
         "title": book["title"],
         "author": author,
@@ -177,6 +183,7 @@ def book_show(request, id):
         "isbn": book["isbn"]
     }
 
+    # helper function to get rid of () in book title if it's in a series
     def clean_title(txt):
         if '(' in txt:
             txt = txt.split('(')
@@ -184,55 +191,31 @@ def book_show(request, id):
         else:
             return(txt)
 
-
-
-    
+    # search movie from omdb api by this book title
     title = clean_title(detail["title"])
     omdb_response = requests.get('http://www.omdbapi.com/?t={}&apikey={}'.format(title, config('omdb_key')))
     movie_data = json.loads(omdb_response.content)
-    search_key = "Writer"
-    movie_writers = [val for key, val in movie_data.items() if search_key in key] 
-    # print("Values for substring keys : " + str(movie_writers))
-    # book_writer = detail.author
-
-    # def book_author(book_writers):
-    #     if '(novel)' in movie_writers or '(book)' in movie_writers == book_writers:
-    #         print('true')
-    #         return True
-    #     else:
-    #         print('false')
-    #         return False
-
-    def book_author(writer):
-        ls = ['novel', 'book', 'based on the  by']
-        theWriter = []
-        for i in range(len(ls)):
-            if ls[i] in writer:
-                writer = ''.join(writer.split(ls[i]))
-        writer = writer.split(',')
-        for i in writer:
-            if '()' in i:
-                theWriter = i.split(' (')
-        return (theWriter[0])
-
-    print(book_author(movie_data['Writer']))
-    # print(movie_data['Writer'])
-    # print(movie_data)
-    if "Title" in movie_data:
-        movie = {
-            "title": movie_data["Title"],
-            "year": movie_data["Year"],
-            "director": movie_data["Director"],
-            "writer": movie_data["Writer"],
-            "poster": movie_data["Poster"],
-            "imdbRating": movie_data["imdbRating"]
-        }
-    else: 
+    
+    # check if the writer of the movie is the same of the book author 
+    if "Writer" in movie_data:
+        if detail["author"] in movie_data["Writer"]:
+            if "Title" in movie_data:
+                movie = {
+                    "title": movie_data["Title"],
+                    "year": movie_data["Year"],
+                    "director": movie_data["Director"],
+                    "writer": movie_data["Writer"],
+                    "poster": movie_data["Poster"],
+                    "imdbRating": movie_data["imdbRating"]
+                }
+            else: 
+                movie = "No movie based on this book yet."
+    else:
         movie = "No movie based on this book yet."
-    
-    
 
-
+    print(movie)
+    
+    # get 6 similar books stored in a dictionary
     for i in range(6):
         similar_books = {
             "id": book["similar_books"]["book"][i]["id"],
@@ -240,19 +223,19 @@ def book_show(request, id):
             "image_url": book["similar_books"]["book"][i]["image_url"]
         }
         similar.append(similar_books)
-        
+
+    # return stored dictionaries
     return render(request, 'book_show.html', {
         "detail": detail,
         "similar": similar,
         "buyLinks": buyLinks,
         "comments":comments,
+        "did": config('key')
     })
     
 class CommentUpdate(UpdateView):
     model = Comment
     fields = ['content']
-    # user = request.user
-    # success_url = '/user/'
     def form_valid(self, form): 
         self.object = form.save(commit=False) 
         self.object.save()
