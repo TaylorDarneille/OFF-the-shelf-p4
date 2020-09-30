@@ -212,7 +212,7 @@ def book_show(request, id):
     omdb_response = requests.get('http://www.omdbapi.com/?t={}&apikey={}'.format(detail["title"], config('omdb_key')))
     # print(omdb_response.content)
     movie = omdb_response.content
-    
+    print(movie)
     
 
 
