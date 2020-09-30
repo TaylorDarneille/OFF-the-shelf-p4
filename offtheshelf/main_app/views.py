@@ -10,39 +10,15 @@ from django.utils.decorators import method_decorator
 import requests, xmltodict, json, dotenv
 from decouple import config
 import os
-from imdb import IMDb
-import imdb.helpers
-import urllib
-
-# create an instance of the IMDb class
-ia = IMDb()
-
-# get a movie
-# movie = ia.get_movie('0133093')
-
-# # print the names of the directors of the movie
-# print('Directors:')
-# for director in movie['directors']:
-#     print(director['name'])
-
-# # print the genres of the movie
-# print('Genres:')
-# for genre in movie['genres']:
-#     print(genre)
-
-# # search for a person name
-# people = ia.search_person('Mel Gibson')
-# for person in people:
-#    print(person.personID, person['name'])
-
-
 
 
 ######################### Index #########################
+
 def index(request):    
     return render(request, 'index.html')
 
 ######################### Login #########################
+
 def login_view(request):
     if request.method =="POST":
         form = AuthenticationForm(request, request.POST)
@@ -62,11 +38,13 @@ def login_view(request):
         return render(request, 'login.html', {'form':form})
 
 ######################### Logout #########################
+
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/')
 
 ######################### Signup #########################
+
 def signup_view(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -80,7 +58,8 @@ def signup_view(request):
         form = UserCreationForm()
         return render(request, 'signup.html', {'form': form})
 
-######################### Profile #########################        
+######################### Profile #########################   
+     
 @login_required
 def profile(request, username):
     if request.method == "POST":
@@ -113,6 +92,7 @@ def profile(request, username):
     return render(request, 'profile.html', {'username': username, 'wishlists': wishlists, "comments": comments})
 
 ######################### Search Result #########################
+
 def search_results(request):
     if request.method == 'POST':
         search = request.POST.get("search")
@@ -139,6 +119,7 @@ def search_results(request):
     return render(request, 'search_results.html', {"booklist": booklist} )
 
 ######################### Book Show #########################
+
 def book_show(request, id):
     if request.method == 'POST':
         content = request.POST.get("content")
@@ -176,7 +157,7 @@ def book_show(request, id):
     else:
         description = ''
     
-    # check if author is a dict
+    # check if author is a dictionary
     author_type = type(book["authors"]["author"])
     if author_type is dict:
         author = book["authors"]["author"]["name"]
@@ -196,22 +177,21 @@ def book_show(request, id):
         "isbn": book["isbn"]
     }
 
-    # print(detail["title"])
-    # movies = ia.search_movie(detail["title"])
-    # movie = ia.get_movie('0312528')
     
-    # if 'cover url' in movie:
-    #     urlObj = urllib.urlopen(movie['cover url'])
-    #     imageData = urlObj.read()
-    #     urlObj.close()
-    # movies = ia.get_movie('0094226')
-    # print(movies)
-    # print(movies[0])
-    # print(movies[0].movieID)
-    # print(movie)
     omdb_response = requests.get('http://www.omdbapi.com/?t={}&apikey={}'.format(detail["title"], config('omdb_key')))
-    # print(omdb_response.content)
-    movie = omdb_response.content
+    movie_data = json.loads(omdb_response.content)
+    print(movie_data)
+    if "Title" in movie_data:
+        movie = {
+            "title": movie_data["Title"],
+            "year": movie_data["Year"],
+            "director": movie_data["Director"],
+            "writer": movie_data["Writer"],
+            "poster": movie_data["Poster"],
+            "imdbRating": movie_data["imdbRating"]
+        }
+    else: 
+        movie = "No movie based on this book yet."
     
     
 
