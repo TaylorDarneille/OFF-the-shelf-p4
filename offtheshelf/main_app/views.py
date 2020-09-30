@@ -10,14 +10,14 @@ from django.utils.decorators import method_decorator
 import requests, xmltodict, json, dotenv
 from decouple import config
 import os
-# from imdb import IMDb
+from imdb import IMDb
+import imdb.helpers
+import urllib
 
+# create an instance of the IMDb class
+ia = IMDb()
 
-
-# # create an instance of the IMDb class
-# ia = IMDb()
-
-# # get a movie
+# get a movie
 # movie = ia.get_movie('0133093')
 
 # # print the names of the directors of the movie
@@ -161,7 +161,7 @@ def book_show(request, id):
     book = theData["GoodreadsResponse"]["book"]
     similar = []
     buyLinks = []
-
+    
     def clean_text(txt):
         unwanted_tags = ['<br />', '<b>', '</b>', '<i>', '</i>', '<em>', '</em>']
         for i in unwanted_tags:
@@ -196,6 +196,26 @@ def book_show(request, id):
         "isbn": book["isbn"]
     }
 
+    # print(detail["title"])
+    # movies = ia.search_movie(detail["title"])
+    # movie = ia.get_movie('0312528')
+    
+    # if 'cover url' in movie:
+    #     urlObj = urllib.urlopen(movie['cover url'])
+    #     imageData = urlObj.read()
+    #     urlObj.close()
+    # movies = ia.get_movie('0094226')
+    # print(movies)
+    # print(movies[0])
+    # print(movies[0].movieID)
+    # print(movie)
+    omdb_response = requests.get('http://www.omdbapi.com/?t={}&apikey={}'.format(detail["title"], config('omdb_key')))
+    # print(omdb_response.content)
+    movie = omdb_response.content
+    
+    
+
+
     for i in range(6):
         similar_books = {
             "id": book["similar_books"]["book"][i]["id"],
@@ -210,7 +230,7 @@ def book_show(request, id):
         "buyLinks": buyLinks,
         "comments":comments,
     })
-
+    
 class CommentUpdate(UpdateView):
     model = Comment
     fields = ['content']

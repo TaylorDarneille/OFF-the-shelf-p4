@@ -71,10 +71,17 @@ input{
     text-align: center;
     
 
+<<<<<<< HEAD
 }
 h5{
     width: 50px;
 }
+=======
+}
+h5{
+    width: 50px;
+}
+>>>>>>> 74ef1669d9ecee7e64dd20109835a9352d44b1b1
 
 audio { 
     margin-top: 20px;
@@ -166,6 +173,7 @@ audio {
   /* } */
   .buy-link{
       font-size: 1rem;
+<<<<<<< HEAD
       color:#80a84c;
       
   }
@@ -173,6 +181,10 @@ audio {
 
     color:#e8d0a9
   }
+=======
+      
+  }
+>>>>>>> 74ef1669d9ecee7e64dd20109835a9352d44b1b1
   .footer-names{
       display: inline-block;
       margin-left: 2.5rem;
@@ -190,6 +202,7 @@ audio {
       
 
   }
+<<<<<<< HEAD
   .sim-grid{
       display:grid;
       grid-template-columns: 2fr 2fr 2fr;
@@ -228,3 +241,6 @@ audio {
 
 
  
+=======
+ 
+>>>>>>> 74ef1669d9ecee7e64dd20109835a9352d44b1b1
