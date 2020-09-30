@@ -103,10 +103,14 @@ def search_results(request):
         jsonData = json.dumps(data)
         theData = json.loads(jsonData)
         searchList = theData["GoodreadsResponse"]["search"]["results"]["work"]
-    
-        booklist = []
 
-        for i in range(10):
+        booklist = []
+        # check number of search results, if more than 10 return first 10
+        num_results = len(searchList)
+        if num_results > 10: 
+            num_results = 10
+
+        for i in range(num_results):
             book = {
                 "title": searchList[i]["best_book"]["title"],
                 "author": searchList[i]["best_book"]["author"]["name"],
@@ -148,7 +152,7 @@ def book_show(request, id):
     
     # helper function to cleanup book description
     def clean_text(txt):
-        unwanted_tags = ['<br />', '<b>', '</b>', '<i>', '</i>', '<em>', '</em>']
+        unwanted_tags = ['<br />', '<b>', '</b>', '<i>', '</i>', '<em>', '</em>', '<a>', '</a>', '<p>', '</p>']
         for i in unwanted_tags:
             if i in txt:
                 txt = ''.join(txt.split(i))
@@ -195,34 +199,46 @@ def book_show(request, id):
     title = clean_title(detail["title"])
     omdb_response = requests.get('http://www.omdbapi.com/?t={}&apikey={}'.format(title, config('omdb_key')))
     movie_data = json.loads(omdb_response.content)
-    
     # check if the writer of the movie is the same of the book author 
-    if "Writer" in movie_data:
-        if detail["author"] in movie_data["Writer"]:
-            if "Title" in movie_data:
+    if "Title" in movie_data:
+        if "Writer" in movie_data:
+            if detail["author"] in movie_data["Writer"] or detail["author"] in movie_data["Plot"]:            
                 movie = {
                     "title": movie_data["Title"],
                     "year": movie_data["Year"],
                     "director": movie_data["Director"],
                     "writer": movie_data["Writer"],
                     "poster": movie_data["Poster"],
-                    "imdbRating": movie_data["imdbRating"]
+                    "imdbRating": movie_data["imdbRating"],
+                    "plot": movie_data["Plot"]
                 }
             else: 
-                movie = "No movie based on this book yet."
+                movie = {
+                    "None": "No movie based on this book yet."
+                }
+        else:
+            movie = {
+                "None": "No movie based on this book yet."
+            }
     else:
-        movie = "No movie based on this book yet."
-
-    print(movie)
+        movie = {
+            "None": "No movie based on this book yet."
+        }
     
     # get 6 similar books stored in a dictionary
-    for i in range(6):
-        similar_books = {
-            "id": book["similar_books"]["book"][i]["id"],
-            "title" : book["similar_books"]["book"][i]["title"],
-            "image_url": book["similar_books"]["book"][i]["image_url"]
-        }
-        similar.append(similar_books)
+    if "similar_books" in book:
+        num_books = len(book["similar_books"]["book"])
+        if num_books > 6:
+            num_books = 6
+        for i in range(num_books):
+            similar_books = {
+                "id": book["similar_books"]["book"][i]["id"],
+                "title" : book["similar_books"]["book"][i]["title"],
+                "image_url": book["similar_books"]["book"][i]["image_url"]
+            }
+            similar.append(similar_books)
+    else:
+        similar.append({"None": "Cannot find similar books."})
 
     # return stored dictionaries
     return render(request, 'book_show.html', {
@@ -230,7 +246,8 @@ def book_show(request, id):
         "similar": similar,
         "buyLinks": buyLinks,
         "comments":comments,
-        "did": config('key')
+        "did": config('key'),
+        "movie": movie
     })
     
 class CommentUpdate(UpdateView):
