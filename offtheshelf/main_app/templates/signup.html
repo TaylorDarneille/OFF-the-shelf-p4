@@ -1,5 +1,25 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
 
-{%block content%}
+{% load crispy_forms_tags %}
+{% crispy form form.helper %}
 
-    {% endblock %}
+{% block content %}
+
+  <div class="container text-center" id="signup" >
+    <h3 class="title">Sign Up</h3>
+      <form method="POST">
+        {% crispy form %}
+        {% csrf_token %} {{ form.as_p }}
+        <div class="text-center">
+          <button class="btn btn-primary" type="submit">Sign Up!</button>
+        </div>
+      </form>
+
+      <div>
+        <p class="signup-text">
+         Welcome to Off the Shelf! 
+        </p>
+      </div>
+  </div>
+{% endblock %}
+

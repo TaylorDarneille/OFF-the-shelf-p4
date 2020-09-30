@@ -1,11 +1,34 @@
 {% extends 'base.html' %}
 
+
+
+
 {% block content %}
-  <h1>{{ username }}'s Profile </h1>
-  
-    <!-- <a href="/cats/{{ cat.id }}"> -->
-     
-    <!-- </a> -->
+
+  <h1>{{ username }}'s Wishlist </h1>
+  {% for i in wishlists %}
+  <a href="/book_show/{{ i.book_id }}"><h4>{{ i.title }}</h4></a>
+  <img src="{{ i.img_url }}" alt="img">
+  <form action="" method="POST">
+    {% csrf_token %}
+    
+
+    <input hidden type="text" name="delete" value="{{i.book_id}}">
+    <button type="submit">Delete from Wishlist</button>
+  </form>
+  {% endfor %}
+
+  <h2>{{ username }}'s Comments</h2>
+  {% for i in comments %}
+  <a href="/book_show/{{i.book_id}}"><h4>Title:{{i.title}}</h4></a>
+  <h4>{{i.content}}</h4>
+  <a href="{% url 'comments_update' i.id  %}">Update</a>
+  <form action="" method="POST">
+    {% csrf_token %}
+    <input hidden type="text" name="delete_comment" value={{i.id}}>
+    <button type="submit">Delete</button>
+  </form>
+  {% endfor %}
   
 
     {% endblock %}
