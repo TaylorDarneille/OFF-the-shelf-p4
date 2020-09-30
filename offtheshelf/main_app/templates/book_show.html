@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {%block content%}
 <h1>{{ detail.title }}</h1>
-<h2>Author: <a href="{{ detail.author_link }}">{{ detail.author }}</a></h2>
+<h2>Author: <a class="author-link" href="{{ detail.author_link }}">{{ detail.author }}</a></h2>
 <h3>avg rating: {{detail.average_rating}}</h3>
 <div>{{ detail.description }}</div>
 <h3>Buy links:</h3>
 
-    <h4 class="buy-link"><a href="https://www.barnesandnoble.com/s/{{ detail.title }}/_/N-w">Barnes and Noble</a></h4>
-    <h4 class="buy-link"><a href="https://www.amazon.com/s?k={{ detail.isbn }}&i=stripbooks&ref=nb_sb_noss">Amazon</a></h4>
-    <h4 class="buy-link"><a href="https://www.amazon.com/s?k={{ detail.isbn }}&i=digital-text&ref=nb_sb_noss">Kindle</a></h4>
+    <h4 ><a class="buy-link" href="https://www.barnesandnoble.com/s/{{ detail.title }}/_/N-w">Barnes and Noble</a></h4>
+    <h4 ><a class="buy-link"href="https://www.amazon.com/s?k={{ detail.isbn }}&i=stripbooks&ref=nb_sb_noss">Amazon</a></h4>
+    <h4 ><a class="buy-link"href="https://www.amazon.com/s?k={{ detail.isbn }}&i=digital-text&ref=nb_sb_noss">Kindle</a></h4>
 
 
 <img src={{detail.img_url}} alt="img">
@@ -35,12 +35,16 @@
     {% endfor %}
 </div>
 
-<h3>Similar Books:</h3>
-{% for i in similar %}
-<a href="/book_show/{{ i.id }}"><h1>{{ i.title }}</h1></a>
-<img src={{i.image_url}} alt="img">
-{% endfor %}
 
+  <h3>Similar Books:</h3>
+<div class="sim-grid">
+{% for i in similar %}
+<div class="card">
+<a href="/book_show/{{ i.id }}"><h1 class="sim-book-title">{{ i.title }}</h1></a>
+<img class="book-image"src="/static/assets/icons8-book-75.png" alt="img">
+</div>
+{% endfor %}
+</div>
 <style>
     #goodreads-widget {
     font-family: georgia, serif;

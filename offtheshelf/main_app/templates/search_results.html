@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
 {%block content%}
     {% for book in booklist %}
-    <a class="title-link" href="/book_show/{{ book.id }}">
-        <h1> {{ book.title }} </h1>
+    <a id="title-link" class="title-link" href="/book_show/{{ book.id }}">
+        <h1 id="title-link" class="title-link"> {{ book.title }} </h1>
     </a>
     <h2>{{ book.author }}</h2>
     <h3>{{ book.average_rating }}</h3>
     <img src={{ book.img_url }} alt="img">
+    <br />
+    <br />
+    <br />
+    <br />
     {% endfor %}
     
 {% endblock %}
