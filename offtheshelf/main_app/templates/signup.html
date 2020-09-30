@@ -11,7 +11,7 @@
         {% crispy form %}
         {% csrf_token %} {{ form.as_p }}
         <div class="text-center">
-          <button type="submit">Sign Up!</button>
+          <button id="sign-up-button"type="submit"><img class="shelf-icon"src="/static/assets/icons8-add-user-male-50.png" alt="add a user">Sign Up!</button>
         </div>
       </form>
 
