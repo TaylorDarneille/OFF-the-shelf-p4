@@ -48,23 +48,28 @@ button:hover{
     text-shadow: 1px 1px black;
 }
 
-/* .comment-label{
+.comments{
+    border: 5px solid #b7afa3;
+    border-radius: 10%;
+   
+    margin: auto;
+    width: 50vw;
+}
 
-} */
 
 input{
     border: 2px
 }
 .opaque{
-    width: 50vw;
+    width: 75vw;
     grid-template-columns: 1fr 1fr;
     text-align: center;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.548);
     display: block;
     margin-left: auto;
     margin-right: auto;
     min-height: 100vh;
-    
+    padding-top: 2rem;
 }
 @media(max-width:900px){
     .opaque{
@@ -80,9 +85,7 @@ input{
     
 
 }
-h5{
-    width: 50px;
-}
+
 
 audio { 
     margin-top: 20px;
@@ -108,7 +111,8 @@ audio {
 
 
 .search{
-    background: none
+    /* background: none */
+    margin: auto;
 }
 #index-head {
     text-align: center;
@@ -129,7 +133,17 @@ audio {
     
     font-family: 'David Libre', serif;
     /* text-shadow: 2px 2px black; */
-    font-size: 1.2rem
+    font-size: 1.2rem;
+}
+@media(max-width:900px){
+    .nav-link{
+        font-size: .8rem
+    }
+}
+@media(max-width:600px){
+    .nav-link{
+        font-size: .5rem
+    }
 }
 .nav-link:hover, .navbar-brand:hover{
     
@@ -161,7 +175,7 @@ audio {
       color:#000000;
       max-width: 40vw;
 }
-#id_password1, #id_password2{
+#id_password1, #id_password2, #id_password{
     background: #B7B7A4;
       border: 2px;
       border-radius: 10px;
@@ -184,8 +198,8 @@ audio {
 }
 
 .footer {
-    position: fixed;
-    height: 2rem;
+    /* position: fixed; */
+    /* height: 2rem; */
     left: 0;
     bottom: 0;
     width: 100%;
@@ -198,8 +212,9 @@ audio {
     border-radius: 10px;
     box-shadow: 0px 2px 20px black;
     padding: 2px;
-    margin-top: 10rem;
-    padding-bottom: 1rem
+    /* margin-top: 10rem; */
+    /* padding-bottom: 1rem */
+    padding-top: 1rem;
   }
   .fourofour{ 
       background-image: url("/assets/bookworm.gif");

@@ -142,7 +142,7 @@ def book_show(request, id):
             content=content,
             book_id = id,
             user = user,
-            title = title
+            title = title,
         )
 
     # get existing comments about this book from our database
