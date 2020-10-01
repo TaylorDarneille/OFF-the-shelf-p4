@@ -108,7 +108,8 @@ audio {
 
 
 .search{
-    background: none
+    /* background: none */
+    margin: auto;
 }
 #index-head {
     text-align: center;
@@ -199,7 +200,8 @@ audio {
     box-shadow: 0px 2px 20px black;
     padding: 2px;
     /* margin-top: 10rem; */
-    padding-bottom: 1rem
+    /* padding-bottom: 1rem */
+    padding-top: 1rem;
   }
   .fourofour{ 
       background-image: url("/assets/bookworm.gif");
