@@ -201,9 +201,9 @@ audio {
     margin-top: 10rem;
     padding-bottom: 1rem
   }
-  .fourofour{ 
-      background-image: url("/assets/bookworm.gif");
-  }
+  /* .fourofour{ */
+      /* background-image: url("/assets/bookworm.gif"); */
+  /* } */
   .buy-link {
       font-size: 1rem;
       color:#e8d0a9;

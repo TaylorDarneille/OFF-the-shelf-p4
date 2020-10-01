@@ -10,6 +10,7 @@ from django.utils.decorators import method_decorator
 import requests, xmltodict, json, dotenv
 from decouple import config
 import os
+from django.core.paginator import Paginator
 
 
 ######################### Index #########################
@@ -114,7 +115,12 @@ def search_results(request):
                 "average_rating": searchList[i]["average_rating"],
                 "id": searchList[i]["best_book"]["id"]['#text'],
             }
+    
             booklist.append(book)
+        # return(booklist)
+    # paginator = Paginator(booklist, 2)
+    # page_number = request.GET.get("page")
+    # page_obj = paginator.get_page(page_number)
 
     return render(request, 'search_results.html', {"booklist": booklist} )
 
@@ -242,8 +248,8 @@ class CommentUpdate(UpdateView):
         user = self.object.user.username
         return HttpResponseRedirect('/user/' + user)
 
-# def handler404(request):
-#     return render(request, '404.html', status=404)
+def handler404(request):
+    return render(request, '404.html', status=404)
 # def handler500(request):
 #     return render(request, '500.html', status=500)
 
